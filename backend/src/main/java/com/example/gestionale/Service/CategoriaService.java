@@ -13,13 +13,13 @@ public class CategoriaService {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
-    // Recupera tutte le categorie
+    
     public ApiResponse<List<Categoria>> getTutte() {
         List<Categoria> lista = categoriaRepository.findAll();
         return new ApiResponse<>(200, "Categorie recuperate con successo", lista);
     }
 
-    // Salva una nuova categoria
+
     public ApiResponse<Categoria> salva(Categoria categoria) {
         try {
             Categoria salvata = categoriaRepository.save(categoria);

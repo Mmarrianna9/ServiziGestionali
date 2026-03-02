@@ -30,17 +30,17 @@ public class ProdottoService {
         return new ApiResponse<>(201, "Creato", prodottoRepository.save(p));
     }
 
-    // --- ECCO IL METODO CHE MANCAVA O DAVA ERRORE ---
+    // --- ECCO IL METODO 
     public ApiResponse<Prodotto> aggiorna(Long id, Prodotto nuovoDato) {
         // Verifichiamo se il prodotto esiste prima di aggiornare
         if (!prodottoRepository.existsById(id)) {
             return new ApiResponse<>(404, "Prodotto non trovato con ID: " + id, null);
         }
         
-        // Impostiamo l'ID corretto nell'oggetto ricevuto dal frontend
+    
         nuovoDato.setId(id);
         
-        // Salviamo (save() fa l'update se l'ID esiste già nel DB)
+        
         Prodotto salvato = prodottoRepository.save(nuovoDato);
         
         return new ApiResponse<>(200, "Prodotto aggiornato correttamente", salvato);

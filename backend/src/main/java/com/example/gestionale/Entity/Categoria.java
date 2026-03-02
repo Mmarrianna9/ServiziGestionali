@@ -14,8 +14,7 @@ public class Categoria {
     @Column(nullable = false, unique = true)
     private String nome;
 
-    // Relazione Uno-a-Molti: Una categoria ha molti prodotti
-    // JsonIgnore serve per evitare loop infiniti durante la conversione in JSON
+    
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
     @JsonIgnore 
     private List<Prodotto> prodotti;

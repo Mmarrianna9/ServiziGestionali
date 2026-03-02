@@ -2,7 +2,7 @@ package com.example.gestionale.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin; // Usa la tua classe ApiResponse
+import org.springframework.web.bind.annotation.CrossOrigin;  
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +17,7 @@ import com.example.gestionale.Repository.DipendenteRepository;
 
 @RestController
 @RequestMapping("/api/dipendenti")
-@CrossOrigin(origins = "*") // Permette al Frontend di parlare col Backend
+@CrossOrigin(origins = "*") 
 public class DipendenteController {
 
     @Autowired

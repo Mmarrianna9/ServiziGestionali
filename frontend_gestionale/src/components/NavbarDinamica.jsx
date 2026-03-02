@@ -1,18 +1,24 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Menu, X, Package, ShoppingCart, Building2, LogOut, User as UserIcon } from 'lucide-react';
+import { Menu, X, Package, ShoppingCart, Building2, LogOut, Zap } from 'lucide-react';
+
+// Sottocomponente per il Logo (Elettronica & Elettrodomestici)
+const LogoAziendale = () => (
+  <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-700 shadow-lg shadow-indigo-200 group-hover:scale-105 transition-transform">
+    <Zap className="text-white fill-current" size={22} />
+  </div>
+);
 
 export default function NavbarDinamica({ user, onLogout }) {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    onLogout(); // Chiama la funzione passata da App.jsx
+    onLogout(); 
     setIsOpen(false);
     navigate('/login');
   };
 
-  // Definizione dei link con l'email richiesta per vederli
   const menuItems = [
     { 
       label: 'Magazzino', 
@@ -34,7 +40,6 @@ export default function NavbarDinamica({ user, onLogout }) {
     },
   ];
 
-  // FILTRO LOGICO: Mostra l'item se l'utente è l'admin globale O se l'email coincide
   const visibleItems = menuItems.filter(item => 
     user?.email === "admin@example.it" || user?.email === item.requiredEmail
   );
@@ -50,28 +55,37 @@ export default function NavbarDinamica({ user, onLogout }) {
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
 
-        <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 text-lg tracking-tight">
-          GESTIONALE PRO
-        </span>
+        {/* Logo e Nome */}
+        <div className="flex items-center gap-3 group cursor-pointer" onClick={() => navigate('/')}>
+          <LogoAziendale />
+          <div className="flex flex-col">
+            <span className="font-extrabold text-slate-800 text-sm leading-none tracking-tight">
+              ELETTRO<span className="text-indigo-600">PRO</span>
+            </span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
+              Electronics Store
+            </span>
+          </div>
+        </div>
       </div>
 
-      {/* Badge Utente a destra */}
-      <div className="flex items-center gap-3 bg-slate-100 px-4 py-1.5 rounded-full border border-slate-200">
-        <div className="w-6 h-6 bg-indigo-600 rounded-full flex items-center justify-center text-white text-[10px] font-bold">
+      {/* Badge Utente */}
+      <div className="flex items-center gap-3 bg-slate-50 px-4 py-1.5 rounded-full border border-slate-200 shadow-sm">
+        <div className="w-6 h-6 bg-gradient-to-tr from-slate-700 to-slate-500 rounded-full flex items-center justify-center text-white text-[10px] font-bold">
           {user?.nome?.[0] || 'U'}
         </div>
-        <span className="text-xs font-bold text-slate-700 hidden sm:block">{user?.email}</span>
+        <span className="text-xs font-bold text-slate-600 hidden sm:block">{user?.email}</span>
       </div>
 
-      {/* Dropdown Menu Dinamico */}
+      {/* Dropdown Menu */}
       {isOpen && (
         <>
-          {/* Overlay per chiudere il menu cliccando fuori */}
-          <div className="fixed inset-0" onClick={() => setIsOpen(false)}></div>
+          <div className="fixed inset-0 bg-slate-900/10" onClick={() => setIsOpen(false)}></div>
           
           <div className="absolute top-20 left-6 w-72 bg-white shadow-2xl border border-slate-200 rounded-2xl p-3 animate-in fade-in zoom-in-95 duration-200 z-50">
-            <div className="px-3 py-2 mb-2">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Menu Accessibile</p>
+            <div className="px-3 py-2 mb-2 flex items-center justify-between">
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Aree Disponibili</p>
+              <span className="px-2 py-0.5 bg-indigo-100 text-indigo-700 text-[9px] font-bold rounded-full">LIVE</span>
             </div>
 
             {visibleItems.map((item) => (
@@ -81,9 +95,9 @@ export default function NavbarDinamica({ user, onLogout }) {
                 onClick={() => setIsOpen(false)}
                 className="flex items-center gap-3 p-3 hover:bg-indigo-50 hover:text-indigo-600 rounded-xl transition-all group"
               >
-                <span className="text-slate-400 group-hover:text-indigo-500 transition-colors">
+                <div className="text-slate-400 group-hover:text-indigo-500 transition-colors">
                   {item.icon}
-                </span>
+                </div>
                 <span className="font-semibold text-sm">{item.label}</span>
               </Link>
             ))}

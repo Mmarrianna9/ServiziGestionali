@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 public class ApiResponse<T> {
 
     private int status;           // Codice HTTP (es. 200, 201, 404)
-    private String message;       // Messaggio per il frontend
-    private T data;               // Il contenuto (Entity, DTO o Lista)
+    private String message;     
+    private T data;        
     private LocalDateTime timestamp;
 
     // Costruttore completo
@@ -16,7 +16,7 @@ public class ApiResponse<T> {
         this.timestamp = LocalDateTime.now();
     }
 
-    // --- METODI STATICI DI UTILITÀ (Shortcut) ---
+    // --- METODI STATICI DI UTILITÀ ---
 
     // Per le operazioni andate a buon fine
     public static <T> ApiResponse<T> success(T data, String message) {
